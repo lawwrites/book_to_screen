@@ -27,21 +27,26 @@ class CreateFile:
             os.makedirs(self.file_path, exist_ok=True)
 
             #Write to file
-            with open(self.full_path, 'a+', newline = '') as file:
-                writer = csv.writer(file)
-                writer.writerow([
+            with open(self.full_path, 'a+', newline = '') as csv_file:
+                field_names = [
                     "book_id", "book_title", "author", "book_genre", "book_sales", "year",
                     "book_ig", "book_tiktok_book_trailer", "goodreads_score", "featured_lists", "book_awards",
                     "awards_id", "awards_title", "awards_category", "organization",
                     "script_writer_awards", "director_awards", "author_awards",
                     "film_id", "film_title", "film_genre", "director", "script_writer",
                     "film_budget", "box_office", "film_release", "film_youtube_views", "film_ig_follwers",
-                    "film_trailer", "imdb_score", "rotten_tomatoes_score", "roger_ebert_score", "letter_boxd_score"])
+                    "film_trailer", "imdb_score", "rotten_tomatoes_score", "roger_ebert_score", "letter_boxd_score"]
+                writer = csv.DictWriter(csv_file, fieldnames=field_names)
+                writer.writeheader()
             print(f"{self.full_fn} successfully created")
         except Exception as e: 
            self.error_log(e)
 
+class WriteFile(CreateFile):
+    def __init__(self, file_path, file_name, file_type):
+        super.__init__(file_path, file_name, file_type)
 
 
-new_file = CreateFile('/Users/lawhea1214/Documents/portfolio/data_analysis/book_to_screen/data', 'test', 'csv')
+
+new_file = CreateFile('/Users/lawhea1214/Documents/portfolio/data_analysis/book_to_screen/data', 'b-to-p_data', 'csv')
 new_file.create_file()
