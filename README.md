@@ -47,13 +47,9 @@ The books and the films are the entities
 - `book_title`
 - `author`
 - `goodreads_score`
-- `author_tiktok`
-- `author_ig`
 - `book_genre`
 - `featured_lists`
 - `awards`
-- `author-awards`
-- `book_sales`
 
 ### **Films**
 
@@ -63,13 +59,10 @@ The books and the films are the entities
 - `rotten_tomatoes_score`
 - `roger_ebert_score`
 - `letter_boxd_score`
-- `youtube_views`
-- `ig_followers`
 - `film_budget`
 - `script_writer`
 - `director`
 - `film_genre`
-- `director-awards`
 - `box-office`
 
 
@@ -81,24 +74,15 @@ The books and the films are the entities
 - `film` to `film_id`
 - `film` to `film_budget`
 - `film` to `director`
-- `book` to `sales`
-- `book` to `deal`
 
 **1-to-Many:**
 
 - `book` to `films`
-- `film` to `trailers`
-- `book` to `trailers`
-- `trailer` to `views`
-- `film` to `social_media`
 - `film` to `rank`
 - `book` to `rank`
 - `book` to `featured-lists`
-- `book` to `social_media`
 - `film` to `awards`
 - `book` to `awards`
-- `author` to `awards`
-- `director` to `awards`
 - `film` to `script_writer`
 - `book` to `author`
 
@@ -116,18 +100,22 @@ The books and the films are the entities
 ## Write Files
 
 * Define file path: `book_to_screen/data/book-to-screen_data.csv`
+* Import libraries: dataclass, pandas, numpy, os, csv, datatime
 * Open and write to a `book-to-screen_data.csv`
-* Write to `book-to-screen_data.csv` the columns: book_id, book_title, author, book_genre, book_sales, year, book_ig, book_tiktok_book_trailer, goodreads_score, featured_lists, book_awards, book_id, awards_id, awards_title, awards_category, organization, script_writer_awards, director_awards, author_awards, film_id, film_title, film_genre, director, script_writer, film_budget, box_office, film_release, film_youtube_views, film_ig_follwers, film_id, film_trailer, imdb_score, rotten_tomatoes_score, roger_ebert_score, letter_boxd_score, film_id
-..* If field is empty, then add Nan values
+* Write to `book-to-screen_data.csv` the columns:book_id, book_title, author, book_genre, book_sales, year, book_ig, book_tiktok_book_trailer, goodreads_score, featured_lists, book_awards, awards_id, awards_title, awards_category, organization, script_writer_awards, director_awards, author_awards, film_id, film_title, film_genre, director, script_writer, film_budget, box_office, film_release, film_youtube_views, film_ig_follwers, film_trailer, imdb_score, rotten_tomatoes_score, roger_ebert_score, letter_boxd_score
+    * If field is empty, then add Nan values
+* Create a dataclass decorator with the class Book
+* For each row in book CSV
+    * Convert the row to a Book object
+    * Write files cleanly to a DB and CSV
 * Try: 
-..* Open or create `book-to-screen_data.csv` in append mode
-...* For each row of data:
-....*IF field is missing fill in NULL or NaN
-....* Write row to `book-to-screen_data.csv` using column headers
+    * Open or create `book-to-screen_data.csv` in append mode
+    * For each row of data:
+        * IF field is missing fill in NULL or NaN
+        * Write row to `book-to-screen_data.csv` using column headers
 * EXCEPT on error:
-..* Create `error_log.txt` that appends errors to film, e.g., [2025-04-01 12:43] ERROR: Missing film_title at row 88 – KeyError: 'film_title'
-..* Log the datetime, row index, and full
+    * Create `error_log.txt` that appends errors to film, e.g., [2025-04-01 12:43] ERROR: Missing film_title at row 88 – KeyError: 'film_title'
+    * Log the datetime, row index, and fullss
 * Append updates to `book-to-screen_data.csv` with data 
 * Save updates to `book-to-screen_data.csv` as a backup with datetime, e.g. `book-to-screen_data_YYYYMMDD.csv` 
-* After all data is collected use a cartesian join to merge the database
-
+* After all data is collected use a LEFT join to merge the database

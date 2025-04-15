@@ -1,0 +1,2 @@
+2025-04-14 ERROR: 'delimter' is an invalid keyword argument for this function
+2025-04-14 ERROR: '_csv.writer' object has no attribute 'writeheader'
